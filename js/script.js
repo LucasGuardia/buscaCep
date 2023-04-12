@@ -6,7 +6,6 @@ const bairro = document.querySelector('#bairro')
 const cidade = document.querySelector('#cidade')
 const uf = document.querySelector('#uf')
 
-
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault()
 
@@ -18,19 +17,24 @@ searchBtn.addEventListener("click", (e) => {
 
 const searchCep = async (cep) => {
   const apiUrl = `https://viacep.com.br/ws/${cep}/json/`
-
   const res = await fetch(apiUrl)
   const data = await res.json()
-
   return data
 }
 
 const showMeCep = async function (data) {
+
   const returnCep = await searchCep(data)
 
+  if (returnCep.erro === true) {
+    alert('CEP Inválido!')
+    return
+  }
+  
   cep.innerText = returnCep.cep
   logradouro.innerText = returnCep.logradouro
   bairro.innerText = returnCep.bairro
   cidade.innerText = returnCep.localidade
   uf.innerText = returnCep.uf
+  
 }
