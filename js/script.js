@@ -15,6 +15,13 @@ searchBtn.addEventListener("click", (e) => {
   showMeCep(cepInput)
 })
 
+document.addEventListener("keypress", function(e) {
+  if(e.key === 'Enter') {
+    var btn = document.querySelector("#searchButton");
+    btn.click();
+  }
+})
+
 const searchCep = async (cep) => {
   const apiUrl = `https://viacep.com.br/ws/${cep}/json/`
   const res = await fetch(apiUrl)
