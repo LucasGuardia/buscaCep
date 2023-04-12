@@ -5,6 +5,7 @@ const logradouro = document.querySelector('#logradouro')
 const bairro = document.querySelector('#bairro')
 const cidade = document.querySelector('#cidade')
 const uf = document.querySelector('#uf')
+const info = document.querySelector("#info")
 
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault()
@@ -30,7 +31,6 @@ const searchCep = async (cep) => {
 }
 
 const showMeCep = async function (data) {
-
   const returnCep = await searchCep(data)
 
   if (returnCep.erro === true) {
@@ -38,10 +38,21 @@ const showMeCep = async function (data) {
     return
   }
   
+  info.style.display = "flex"
   cep.innerText = returnCep.cep
   logradouro.innerText = returnCep.logradouro
   bairro.innerText = returnCep.bairro
   cidade.innerText = returnCep.localidade
   uf.innerText = returnCep.uf
-  
+}
+
+const handleZipCode = (event) => {
+  let input = event.target
+  input.value = zipCodeMask(input.value)
+}
+
+const zipCodeMask = (value) => {
+  value = value.replace(/\D/g,'')
+  value = value.replace(/(\d{5})(\d)/,'$1-$2')
+  return value
 }

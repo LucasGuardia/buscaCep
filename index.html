@@ -10,13 +10,13 @@
 <body>
   <div class="container">
     <div class="title">
-      <h1>Busca CEP</h1>
+      <h1>Buscador de CEP</h1>
     </div>
     <div class="search">
-      <input type="text" id="searchField" placeholder="00000-000" maxlength="8">
+      <input type="text" id="searchField" placeholder="00000-000" maxlength="9" onkeyup="handleZipCode(event)">
       <button type="button" id="searchButton">Buscar</button>
     </div>
-    <div class="info">
+    <div id="info">
       <span id="cep"></span>
       <span id="logradouro"></span>
       <span id="bairro"></span>
