@@ -7,8 +7,11 @@ const cidade = document.querySelector('#cidade')
 const uf = document.querySelector('#uf')
 const info = document.querySelector("#info")
 
-searchBtn.addEventListener("click", (e) => {
-  e.preventDefault()
+const INVALID_CEP = 'CEP Inválido!'
+const lengthCepWithMask = 9
+
+searchBtn.addEventListener("click", (event) => {
+  event.preventDefault()
 
   const cepInput = search.value
   search.value = ""
@@ -16,26 +19,29 @@ searchBtn.addEventListener("click", (e) => {
   showMeCep(cepInput)
 })
 
-document.addEventListener("keypress", function(e) {
-  if(e.key === 'Enter') {
+document.addEventListener("keypress", function(event) {
+  if(event.key === 'Enter') {
     var btn = document.querySelector("#searchButton");
     btn.click();
   }
 })
 
 const searchCep = async (cep) => {
+
+  if (cep.length < lengthCepWithMask) {
+    return alert(INVALID_CEP)
+  }
+
   const apiUrl = `https://viacep.com.br/ws/${cep}/json/`
   const res = await fetch(apiUrl)
-  const data = await res.json()
-  return data
+  return res.json()
 }
 
 const showMeCep = async function (data) {
   const returnCep = await searchCep(data)
 
-  if (returnCep.erro === true) {
-    alert('CEP Inválido!')
-    return
+  if (returnCep.erro) {
+    return alert(INVALID_CEP)
   }
   
   info.style.display = "flex"
