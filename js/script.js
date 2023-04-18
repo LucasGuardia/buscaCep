@@ -8,7 +8,7 @@ const uf = document.querySelector('#uf')
 const info = document.querySelector("#info")
 
 const INVALID_CEP = 'CEP Inválido!'
-const lengthCepWithMask = 9
+const LENGTH_CEP_WITH_MASK = 9
 
 searchBtn.addEventListener("click", (event) => {
   event.preventDefault()
@@ -19,7 +19,7 @@ searchBtn.addEventListener("click", (event) => {
   showMeCep(cepInput)
 })
 
-document.addEventListener("keypress", function(event) {
+document.addEventListener("keypress", (event) => {
   if(event.key === 'Enter') {
     var btn = document.querySelector("#searchButton");
     btn.click();
@@ -28,7 +28,7 @@ document.addEventListener("keypress", function(event) {
 
 const searchCep = async (cep) => {
 
-  if (cep.length < lengthCepWithMask) {
+  if (cep.length < LENGTH_CEP_WITH_MASK) {
     return alert(INVALID_CEP)
   }
 
